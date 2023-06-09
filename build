@@ -1,0 +1,14 @@
+#!/bin/bash
+NAME=densukest/lsk
+
+for i in Q/*; do
+    Q=$(basename $i)
+    case $Q in
+    0000)
+        docker build -t "${NAME}" .
+        ;;
+    *)
+        docker build -t "${NAME}:${Q}" --build-arg QNO="${Q}" .
+        ;;
+    esac
+done
