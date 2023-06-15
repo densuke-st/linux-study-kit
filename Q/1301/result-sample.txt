@@ -1,0 +1,4 @@
+test.example.net
+tfst.example.net
+tzst.example.net
+tzzst.example.net

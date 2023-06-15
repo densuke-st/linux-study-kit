@@ -1,5 +1,6 @@
 FROM alpine
 
+COPY VERSION /etc/sysver
 RUN apk add --no-cache \
     sudo bash bash-completion less
 RUN adduser -D -g linux -s /bin/bash linux && \

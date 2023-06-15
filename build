@@ -1,6 +1,32 @@
 #!/bin/bash
 NAME=densukest/lsk
 
+while getopts ht opt; do
+    case $opt in
+    t) date +%s > VERSION;;
+    h)
+        echo "使い方: ./build [-t]"
+        echo "   -t: イメージバージョン(epoch)を更新します、公開前はこちらで更新してください"
+        ;;
+    *)
+        echo "unknown opt: $opt"
+        exit 1
+        ;;
+    esac
+    shift
+done
+
+if [ ! -f VERSION ]; then
+    echo "[fatal] VERSIONがありません、-tをつけて作成してください"
+    exit 1
+fi
+
+if [ ! -z "$1" ]; then
+    Q=$1
+    docker build -t "${NAME}:${Q}" --build-arg QNO="${Q}" .
+    exit $?
+fi
+
 for i in Q/*; do
     Q=$(basename $i)
     case $Q in
